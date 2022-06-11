@@ -1,13 +1,20 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { getContacts } from 'redux/selectors';
-import { actions } from 'redux/slice';
+import { actions } from 'redux/contacts/contacts-slice';
 import ContactList from 'components/ContactList/ContactList';
 import ContactForm from 'components/ContactForm/ContactForm';
-import Filter from "components/Filter/Filter"
+import Filter from "components/Filter/Filter";
+import {
+    getContacts,
+    getLoading,
+    getError,
+} from 'redux/contacts/contacts-selectors';
+import { fetchContacts, addContact, removeContact } from "redux/contacts/contacts-operations"
+console.log(getContacts())
 export default function ContactsPage() {
     const [filter, setFilter] = useState("");
-    const items = useSelector(getContacts)
+    console.log(actions.fetchContacts)
+    const items = useSelector(actions)
     const dispatch = useDispatch()
 
 
