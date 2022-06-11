@@ -2,10 +2,10 @@ import axios from "axios";
 
 
 const instance = axios.create({
-    baseURL: "https://auth-backend-lesson.herokuapp.com/api"
+    baseURL: "https://connections-api.herokuapp.com"
 });
 
-export const addToken = (token) => {
+const addToken = (token) => {
     instance.defaults.headers.common.Authorization = `Bearer ${token}`;
     console.log("baba", instance.defaults.headers.common.Authorization);
 }

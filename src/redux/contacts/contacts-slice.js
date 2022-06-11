@@ -17,62 +17,56 @@ console.log(fetchContacts.pending);
 const contactsSlice = createSlice({
     name: 'contacts',
     initialState,
-    extraReducers: (builder) => {
-        builder.addCase(fetchContacts.pending, state => ({
+
+    extraReducers: {
+        [fetchContacts.pending]: state => ({
             ...state,
             loading: true,
             error: null,
-        }));
+        }),
+        [fetchContacts.fulfilled]: (state, { payload }) => ({
+            ...state,
+            items: payload,
+            loading: false,
+        }),
+        [fetchContacts.rejected]: (state, { payload }) => ({
+            ...state,
+            loading: false,
+            error: payload,
+        }),
+
+        [addContact.pending]: state => ({
+            ...state,
+            loading: true,
+            error: null,
+        }),
+        [addContact.fulfilled]: (state, { payload }) => ({
+            ...state,
+            items: [...state.items, payload],
+            loading: false,
+        }),
+        [addContact.rejected]: (state, { payload }) => ({
+            ...state,
+            loading: false,
+            error: payload,
+        }),
+
+        [removeContact.pending]: state => ({
+            ...state,
+            loading: true,
+            error: null,
+        }),
+        [removeContact.fulfilled]: (state, { payload }) => ({
+            ...state,
+            items: state.items.filter(item => item.id !== payload),
+            loading: false,
+        }),
+        [removeContact.rejected]: (state, { payload }) => ({
+            ...state,
+            loading: false,
+            error: payload,
+        }),
     },
-    // extraReducers: {
-    //     [fetchContacts.pending]: state => ({
-    //         ...state,
-    //         loading: true,
-    //         error: null,
-    //     }),
-    //     [fetchContacts.fulfilled]: (state, { payload }) => ({
-    //         ...state,
-    //         items: payload,
-    //         loading: false,
-    //     }),
-    //     [fetchContacts.rejected]: (state, { payload }) => ({
-    //         ...state,
-    //         loading: false,
-    //         error: payload,
-    //     }),
-
-    //     [addContact.pending]: state => ({ 
-    //         ...state, 
-    //         loading: true, 
-    //         error: null,
-    //     }),
-    //     [addContact.fulfilled]: (state, { payload }) => ({
-    //         ...state,
-    //         items: [...state.items, payload],
-    //         loading: false,
-    //     }),
-    //     [addContact.rejected]: (state, { payload }) => ({
-    //         ...state,
-    //         loading: false,
-    //         error: payload,
-    //     }),
-
-    //     [removeContact.pending]: state => ({
-    //         ...state,
-    //         loading: true,
-    //         error: null,
-    //     }),
-    //     [removeContact.fulfilled]: (state, { payload }) => ({
-    //         ...state,
-    //         items: state.items.filter(item => item.id !== payload),
-    //         loading: false,
-    //     }),
-    //     [removeContact.rejected]: (state, { payload }) => ({
-    //         ...state,
-    //         loading: false,
-    //         error: payload,
-    //     }),
-    // },
 });
 
 

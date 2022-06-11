@@ -12,31 +12,33 @@ import {
     addContact as addContactAction,
 } from "redux/contacts/contacts-operations";
 import { getToken } from "redux/auth/auth-selectors"
+import { useEffect } from 'react';
 export default function ContactsPage() {
     const [filter, setFilter] = useState("");
-    // console.log(actions.fetchContacts);
-    const contacts = useSelector(getContacts);
+
     const dispatch = useDispatch();
 
     const token = useSelector(getToken);
 
-    // const items = useSelector(actions)
-
-
+    useEffect(() => {
+        dispatch(fetchContacts(token))
+    }, [])
+    const contacts = useSelector(getContacts);
+    console.log(contacts)
     const addContact = (data) => {
-        // if (items.find(contact => contact.name === data.name)) {
-        //     alert(`${data.name} already exists`)
-        //     return;
-        // }
-        dispatch(addContactAction(data, token));
+        if (contacts.find(contact => contact.name === data.name)) {
+            alert(`${data.name} already exists`)
+            return;
+        }
+        dispatch(addContactAction([data, token]));
     }
 
-    // function getFilteredContacts() {
-    //     if (!filter) {
-    //         return items;
-    //     }
-    //     return items.filter(({ name }) => name.toLowerCase().includes(filter.toLowerCase()))
-    // }
+    function getFilteredContacts() {
+        if (!filter) {
+            return contacts;
+        }
+        return contacts.filter(({ name }) => name.toLowerCase().includes(filter.toLowerCase()))
+    }
 
     const handleLogout = (e) => {
         e.preventDefault();
@@ -54,7 +56,7 @@ export default function ContactsPage() {
     //     dispatch(action);
     // }
 
-    // const data = getFilteredContacts()
+    const data = getFilteredContacts()
     return (
         <div className="app">
             <div className="phone-book">
@@ -67,7 +69,7 @@ export default function ContactsPage() {
                     onChange={handleFilter}
                     value={filter} />
                 <ContactList
-                    contacts={contacts}
+                    contacts={data}
                     onClick={() => alert('remove')}
                 />
             </div>
