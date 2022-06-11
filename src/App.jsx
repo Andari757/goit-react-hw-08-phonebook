@@ -1,23 +1,33 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { actions } from 'redux/contacts/contacts-slice';
-import ContactList from 'components/ContactList/ContactList';
-import ContactForm from 'components/ContactForm/ContactForm';
-import Filter from "components/Filter/Filter"
+import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
+
+
+import { isUserLoggedIn } from 'redux/auth/auth-selectors';
+import RegisterPage from 'pages/RegisterPage/RegisterPage';
 import ContactsPage from 'pages/ContactsPage/ContactsPage';
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { useEffect } from 'react';
+import LoginPage from 'pages/LoginPage/LoginPage';
+
+
 export function App() {
-  let navigate = useNavigate();
+  const location = useLocation();
+  const isLoggedIn = useSelector(isUserLoggedIn);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    navigate("/contacts")
-  }, [])
+    if (!isLoggedIn && !(location.pathname.startsWith('/login') || location.pathname.startsWith('/register'))) {
+      navigate("/login");
+    }
+    if (isLoggedIn && (location.pathname.startsWith('/login') || location.pathname.startsWith('/register'))) {
+      navigate("/contacts");
+    }
+  }, [ isLoggedIn ]);
 
   return (
     <Routes>
       <Route path="/contacts" element={<ContactsPage />} />
-      <Route path="/contacts" element={<ContactsPage />} />
-      <Route path="/contacts" element={<ContactsPage />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/login" element={<LoginPage />} />
     </Routes>
   )
 

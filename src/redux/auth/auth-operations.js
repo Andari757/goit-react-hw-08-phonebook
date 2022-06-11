@@ -42,9 +42,10 @@ export const getCurrentUser = createAsyncThunk(
 
 export const logout = createAsyncThunk(
     "auth/logout",
-    async (_, { rejectWithValue }) => {
+    async (_, { rejectWithValue, getState }) => {
         try {
-            const user = await services.logout();
+            const { auth } = getState();
+            const user = await services.logout(auth.token);
             return user;
         } catch (error) {
             return rejectWithValue(error);

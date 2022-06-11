@@ -5,8 +5,9 @@ const instance = axios.create({
     baseURL: "https://auth-backend-lesson.herokuapp.com/api"
 });
 
-const addToken = (token) => {
+export const addToken = (token) => {
     instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+    console.log("baba", instance.defaults.headers.common.Authorization);
 }
 
 const removeToken = () => {
@@ -36,7 +37,10 @@ export const getCurrent = async (token) => {
     }
 }
 
-export const logout = async () => {
+export const logout = async (token) => {
+    console.log(token);
+    addToken(token);
+    //console.log(instance.defaults.headers.common.Authorization);
     const { data } = await instance.post("/users/logout");
     removeToken();
     return data;
