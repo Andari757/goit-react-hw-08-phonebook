@@ -1,7 +1,4 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { getToken } from "redux/auth/auth-selectors";
-
 
 const instance = axios.create({
     baseURL: "https://connections-api.herokuapp.com"
