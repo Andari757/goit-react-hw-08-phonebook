@@ -1,7 +1,8 @@
 
 import instance from "shared/authApi/authApi";
-export const getContacts = async () => {
-
+import { addToken } from "shared/authApi/authApi"
+export const getContacts = async (token) => {
+    addToken(token)
     const { data } = await instance.get('/contacts');
     return data;
 };

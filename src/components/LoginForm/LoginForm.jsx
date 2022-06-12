@@ -28,6 +28,11 @@ export default function LoginForm({ onSubmit }) {
     };
     return (
         <form className={s.form} onSubmit={handleSubmit}>
+            <button type='button' className={s.buttonLink}>
+                <Link className={s.link} to="/register">
+                    Register?
+                </Link>
+            </button>
             <input className={s.input}
                 name="email"
                 value={data.email}
@@ -47,11 +52,7 @@ export default function LoginForm({ onSubmit }) {
             <button className={s.button} type="submit" disabled={!isEmailValid || !isPasswordValid}>
                 Login
             </button>
-            <button className={s.buttonLink}>
-                <Link className={s.link} to="/register">
-                    Register?
-                </Link>
-            </button>
+
         </form>
 
     )

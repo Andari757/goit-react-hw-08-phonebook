@@ -13,16 +13,16 @@ import {
 } from "redux/contacts/contacts-operations";
 import s from "./style.module.css"
 import { TailSpin } from 'react-loader-spinner';
+import { getToken } from 'redux/auth/auth-selectors';
 export default function ContactsPage() {
     const [filter, setFilter] = useState("");
     const loading = useSelector(getLoading)
     const dispatch = useDispatch();
-
+    const token = useSelector(getToken)
 
     useEffect(() => {
-
-        dispatch(fetchContacts())
-    }, [dispatch])
+        dispatch(fetchContacts(token))
+    }, [dispatch, token])
     const contacts = useSelector(getContacts);
     const addContact = (data) => {
         if (contacts.find(contact => contact.name === data.name)) {
