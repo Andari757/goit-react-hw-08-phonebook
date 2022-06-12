@@ -1,6 +1,5 @@
-import { useEffect } from 'react'
 import { useSelector } from 'react-redux';
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 
@@ -11,26 +10,32 @@ import LoginPage from 'pages/LoginPage/LoginPage';
 
 
 export function App() {
-  const location = useLocation();
+  // const location = useLocation();
   const isLoggedIn = useSelector(isUserLoggedIn);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (!isLoggedIn && !(location.pathname.startsWith('/login') || location.pathname.startsWith('/register'))) {
-      navigate("/login");
-    }
-    if (isLoggedIn && (location.pathname.startsWith('/login') || location.pathname.startsWith('/register'))) {
-      navigate("/contacts");
-    }
-  }, [isLoggedIn, location.pathname, navigate]);
+
+  //   if (!isLoggedIn && !(location.pathname.startsWith('/login') || location.pathname.startsWith('/register'))) {
+  //     navigate("/login");
+  //   }
+  //   if (isLoggedIn && (location.pathname.startsWith('/login') || location.pathname.startsWith('/register'))) {
+  //     navigate("/contacts");
+  //   }
+  // }, [isLoggedIn, location.pathname, navigate]);
+
+  const defaultRoute = (
+    isLoggedIn ? 'contacts' : 'login'
+  );
 
   return (
 
     <Routes>
-      <Route path="/contacts" element={<ContactsPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/login" element={<LoginPage />} />
+      {isLoggedIn && <Route path="/contacts" element={<ContactsPage />} />}
+      {!isLoggedIn && <Route path="/register" element={<RegisterPage />} />}
+      {!isLoggedIn && <Route path="/login" element={<LoginPage />} />}
+      <Route path="*" element={<Navigate to={defaultRoute} />} />
     </Routes>
   )
 
