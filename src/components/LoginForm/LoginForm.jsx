@@ -1,9 +1,10 @@
 import { useState, } from 'react';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import s from "./style.module.css"
 
 export default function LoginForm({ onSubmit }) {
+    const navigate = useNavigate()
     const [data, setData] = useState({
         email: "",
         password: ""
@@ -26,14 +27,15 @@ export default function LoginForm({ onSubmit }) {
             [name]: value,
         }));
     };
+    const handleClick = () => {
+        navigate("/register")
+    }
     return (
         <form className={s.form} onSubmit={handleSubmit}>
-            <img src={require('./1.png')} alt="" />
-            це посилання на сторінку реєстрації
-            <button type='button' className={s.buttonLink}>
-                <Link className={s.link} to="/register">
-                    Register?
-                </Link>
+            <button type='button' onClick={handleClick} className={s.buttonLink}>
+
+                Register?
+
             </button>
             <input className={s.input}
                 name="email"

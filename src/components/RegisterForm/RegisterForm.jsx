@@ -1,5 +1,5 @@
 import { useState, } from 'react';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import s from "./style.module.css"
 
 
@@ -9,7 +9,7 @@ export default function RegisterForm({ onSubmit }) {
         password: "",
         name: ""
     });
-
+    const navigate = useNavigate()
     const isEmailValid = data.email.match(/[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]+/i);
     const isPasswordValid = data.password.length >= 6;
     const handleChange = ({ target }) => {
@@ -24,13 +24,15 @@ export default function RegisterForm({ onSubmit }) {
         const { email, password, name } = data;
         onSubmit({ email, password, name })
     };
-
+    const handleClick = () => {
+        navigate("/login")
+    }
     return (
         <form className={s.form} onSubmit={handleSubmit}>
-            <button type='button' className={s.buttonLink}>
-                <Link className={s.link} to="/login">
-                    Login?
-                </Link>
+            <button type='button' onClick={handleClick} className={s.buttonLink}>
+
+                Login?
+
             </button>
             <input
                 value={data.name}
