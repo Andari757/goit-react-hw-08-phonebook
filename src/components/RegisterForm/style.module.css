@@ -1,0 +1,52 @@
+.button {
+    color: darkslategray;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 6px;
+    border: 1px solid silver;
+    width: 120px;
+    height: 35px;
+}
+
+.button:hover,
+.button:focus {
+    background-color: slategray;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+}
+
+.buttonLink {
+    color: black;
+    text-decoration: none;
+    color: darkslategray;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 6px;
+    border: 1px solid silver;
+    width: 120px;
+    height: 35px;
+}
+
+.buttonLink:hover,
+.buttonLink:focus {
+    background-color: slategray;
+}
+
+.form {
+    flex-direction: column;
+    padding: 12px;
+    max-width: fit-content;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form *:not(:last-child) {
+    margin-bottom: 8px;
+}

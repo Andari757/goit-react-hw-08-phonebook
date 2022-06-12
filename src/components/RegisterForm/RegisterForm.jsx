@@ -2,6 +2,7 @@ import { useState, } from 'react';
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { signup as signupAction } from 'redux/auth/auth-operations';
+import s from "./style.module.css"
 
 
 export default function RegisterForm() {
@@ -20,31 +21,41 @@ export default function RegisterForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <Link to="/login">
-                Login?
-            </Link>
+        <form className={s.form} onSubmit={handleSubmit}>
             <input
                 value={name}
                 placeholder="Name"
+                autoComplete="none"
+                className={s.input}
                 type="text"
                 onChange={e => setName(e.target.value)}
             />
             <input
                 value={email}
                 placeholder="Email"
+                autoComplete="none"
+                className={s.input}
                 type="text"
                 style={{ borderColor: isEmailValid ? 'green' : 'red' }}
                 onChange={e => setEmail(e.target.value)}
             />
             <input
                 value={password}
+                className={s.input}
+                autoComplete="new-password"
                 placeholder="Password"
                 type="password"
                 style={{ borderColor: isPasswordValid ? 'green' : 'red' }}
                 onChange={e => setPassword(e.target.value)}
             />
-            <input type="submit" />
+            <button className={s.button} type="submit" disabled={!isEmailValid || !isPasswordValid || name.length < 1}>
+                Register
+            </button>
+            <button className={s.buttonLink}>
+                <Link className={s.link} to="/login">
+                    Login?
+                </Link>
+            </button>
         </form>
     )
 };
