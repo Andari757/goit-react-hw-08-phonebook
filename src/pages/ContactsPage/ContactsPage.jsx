@@ -5,8 +5,7 @@ import ContactList from 'components/ContactList/ContactList';
 import ContactForm from 'components/ContactForm/ContactForm';
 import Filter from "components/Filter/Filter";
 import UserMenu from 'components/UserMenu/UserMenu';
-import { logout as logoutAction } from "redux/auth/auth-operations";
-import { getContacts, getLoading, getError } from 'redux/contacts/contacts-selectors';
+import { getContacts, getLoading } from 'redux/contacts/contacts-selectors';
 import {
     fetchContacts,
     removeContact as removeContactAction,
@@ -24,7 +23,7 @@ export default function ContactsPage() {
 
     useEffect(() => {
         dispatch(fetchContacts(token))
-    }, [dispatch])
+    }, [dispatch, token])
     const contacts = useSelector(getContacts);
     const addContact = (data) => {
         if (contacts.find(contact => contact.name === data.name)) {
