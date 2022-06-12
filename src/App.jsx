@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
-import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux';
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 
 
 import { isUserLoggedIn } from 'redux/auth/auth-selectors';
@@ -21,9 +21,10 @@ export function App() {
     if (isLoggedIn && (location.pathname.startsWith('/login') || location.pathname.startsWith('/register'))) {
       navigate("/contacts");
     }
-  }, [ isLoggedIn ]);
+  }, [isLoggedIn]);
 
   return (
+
     <Routes>
       <Route path="/contacts" element={<ContactsPage />} />
       <Route path="/register" element={<RegisterPage />} />

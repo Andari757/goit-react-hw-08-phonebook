@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ContactList from 'components/ContactList/ContactList';
 import ContactForm from 'components/ContactForm/ContactForm';
 import Filter from "components/Filter/Filter";
+import UserMenu from 'components/UserMenu/UserMenu';
 import { logout as logoutAction } from "redux/auth/auth-operations";
 import { getContacts, getLoading, getError } from 'redux/contacts/contacts-selectors';
 import {
@@ -38,10 +39,6 @@ export default function ContactsPage() {
         return contacts.filter(({ name }) => name.toLowerCase().includes(filter.toLowerCase()))
     }
 
-    const handleLogout = (e) => {
-        e.preventDefault();
-        dispatch(logoutAction());
-    };
 
 
 
@@ -56,6 +53,7 @@ export default function ContactsPage() {
     const data = getFilteredContacts()
     return (
         <div className="app">
+            <UserMenu />
             <div className="phone-book">
                 <h1>Phonebook</h1>
                 <ContactForm
@@ -70,12 +68,7 @@ export default function ContactsPage() {
                     onClick={remove}
                 />
             </div>
-            <br />
-            <a href="#" onClick={handleLogout}>
-                Logout
-            </a>
-            <br />
-            <br />
+
         </div >
     );
 
