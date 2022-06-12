@@ -1,0 +1,23 @@
+.button {
+    color: darkslategray;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    padding: 6px;
+    border: 1px solid silver;
+    height: 35px;
+    margin-left: 30px;
+}
+
+.button:hover,
+.button:focus {
+    background-color: slategray;
+}
+
+.menu {
+    font-size: 17px;
+    font-weight: 600;
+    padding: 12px;
+    background-color: #CCC;
+    margin-bottom: 66px;
+}

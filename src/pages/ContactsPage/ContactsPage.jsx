@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import ContactList from 'components/ContactList/ContactList';
 import ContactForm from 'components/ContactForm/ContactForm';
@@ -12,10 +13,11 @@ import {
     addContact as addContactAction,
 } from "redux/contacts/contacts-operations";
 import { getToken } from "redux/auth/auth-selectors"
-import { useEffect } from 'react';
+import s from "./style.module.css"
+import { TailSpin } from 'react-loader-spinner';
 export default function ContactsPage() {
     const [filter, setFilter] = useState("");
-
+    const loading = useSelector(getLoading)
     const dispatch = useDispatch();
 
     const token = useSelector(getToken);
@@ -52,17 +54,22 @@ export default function ContactsPage() {
 
     const data = getFilteredContacts()
     return (
-        <div className="app">
+        <div className={s.page}>
             <UserMenu />
-            <div className="phone-book">
+
+            <div className={s.phoneBook}>
                 <h1>Phonebook</h1>
                 <ContactForm
                     onSubmit={addContact}
                 />
                 <h2>Contacts</h2>
+
                 <Filter
                     onChange={handleFilter}
                     value={filter} />
+                {loading && <div className={s.loader}>
+                    <TailSpin color="#708090" height={80} width={80} />
+                </div >}
                 <ContactList
                     contacts={data}
                     onClick={remove}

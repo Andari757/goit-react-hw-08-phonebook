@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux';
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 
 import { isUserLoggedIn } from 'redux/auth/auth-selectors';
