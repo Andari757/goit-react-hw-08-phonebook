@@ -11,7 +11,6 @@ import {
     removeContact as removeContactAction,
     addContact as addContactAction,
 } from "redux/contacts/contacts-operations";
-import { getToken } from "redux/auth/auth-selectors"
 import s from "./style.module.css"
 import { TailSpin } from 'react-loader-spinner';
 export default function ContactsPage() {
