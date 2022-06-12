@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { store } from "redux/store";
 
 import { signup, login, getCurrentUser, logout } from "./auth-operations";
 
@@ -36,13 +35,12 @@ export const authSlice = createSlice({
             store.loading = true;
             store.error = null;
         },
-        [getCurrentUser.fulfilled]: (store, { payload }) => ({
-            ...store,
-            loading: false,
-            isLogin: true,
-            user: payload.user
-
-        }),
+        [getCurrentUser.fulfilled]: (store, { payload }) => {
+            console.log(payload)
+            store.loading = false;
+            store.isLogin = true;
+            store.user = payload.user;
+        },
         [getCurrentUser.rejected]: (store, { payload }) => {
             store.loading = false;
             store.error = payload;
