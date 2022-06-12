@@ -10,6 +10,7 @@ import PrivateRoute from 'shared/components/PrivateRoute/PrivateRoute';
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getCurrentUser } from "redux/auth/auth-operations";
+import RegisterPage from "pages/RegisterPage/RegisterPage";
 export function App() {
   const dispatch = useDispatch();
 
@@ -38,7 +39,7 @@ export function App() {
     <Routes>
       <Route element={<PublicRoute />}>
         <Route path="/login" element={<LoginPage />} />
-
+        <Route path="/register" element={<RegisterPage />} />
       </Route>
 
       <Route element={<PrivateRoute />}>

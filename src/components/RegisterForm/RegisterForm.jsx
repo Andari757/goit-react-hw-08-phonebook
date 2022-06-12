@@ -1,54 +1,62 @@
 import { useState, } from 'react';
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { signup as signupAction } from 'redux/auth/auth-operations';
 import s from "./style.module.css"
 
 
-export default function RegisterForm() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const dispatch = useDispatch();
+export default function RegisterForm({ onSubmit }) {
+    const [data, setData] = useState({
+        email: "",
+        password: "",
+        name: ""
+    });
 
-    const isEmailValid = email.match(/[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]+/i);
-    const isPasswordValid = password.length >= 6;
-
+    const isEmailValid = data.email.match(/[A-Za-z0-9]+@[A-Za-z0-9]+\.[A-Za-z]+/i);
+    const isPasswordValid = data.password.length >= 6;
+    const handleChange = ({ target }) => {
+        const { name, value } = target;
+        setData(prevForm => ({
+            ...prevForm,
+            [name]: value,
+        }));
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
-        const payload = { email, name, password };
-        dispatch(signupAction(payload));
+        const { email, password, name } = data;
+        onSubmit({ email, password, name })
     };
 
     return (
         <form className={s.form} onSubmit={handleSubmit}>
             <input
-                value={name}
+                value={data.name}
+                name="name"
                 placeholder="Name"
                 autoComplete="none"
                 className={s.input}
                 type="text"
-                onChange={e => setName(e.target.value)}
+                onChange={handleChange}
             />
             <input
-                value={email}
+                value={data.email}
+                name="email"
                 placeholder="Email"
                 autoComplete="none"
                 className={s.input}
                 type="text"
                 style={{ borderColor: isEmailValid ? 'green' : 'red' }}
-                onChange={e => setEmail(e.target.value)}
+                onChange={handleChange}
             />
             <input
-                value={password}
+                value={data.password}
+                name="password"
                 className={s.input}
                 autoComplete="new-password"
                 placeholder="Password"
                 type="password"
                 style={{ borderColor: isPasswordValid ? 'green' : 'red' }}
-                onChange={e => setPassword(e.target.value)}
+                onChange={handleChange}
             />
-            <button className={s.button} type="submit" disabled={!isEmailValid || !isPasswordValid || name.length < 1}>
+            <button className={s.button} type="submit" disabled={!isEmailValid || !isPasswordValid || data.name.length < 1}>
                 Register
             </button>
             <button className={s.buttonLink}>
