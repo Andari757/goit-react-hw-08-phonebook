@@ -22,6 +22,8 @@ export default function ContactsPage() {
     const token = useSelector(getToken);
 
     useEffect(() => {
+        if (!token) return
+
         dispatch(fetchContacts(token))
     }, [dispatch, token])
     const contacts = useSelector(getContacts);

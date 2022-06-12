@@ -14,7 +14,7 @@ export function App() {
   const location = useLocation();
   const isLoggedIn = useSelector(isUserLoggedIn);
   const navigate = useNavigate();
-
+  navigate("/register")
   useEffect(() => {
     if (!isLoggedIn && !(location.pathname.startsWith('/login') || location.pathname.startsWith('/register'))) {
       navigate("/login");
