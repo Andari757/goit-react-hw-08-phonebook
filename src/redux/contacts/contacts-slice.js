@@ -12,7 +12,6 @@ const initialState = {
     error: null,
 };
 
-console.log(fetchContacts.pending);
 
 const contactsSlice = createSlice({
     name: 'contacts',

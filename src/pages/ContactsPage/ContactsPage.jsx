@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { contactsSlice } from 'redux/contacts/contacts-slice';
 import ContactList from 'components/ContactList/ContactList';
 import ContactForm from 'components/ContactForm/ContactForm';
 import Filter from "components/Filter/Filter";
@@ -22,9 +21,8 @@ export default function ContactsPage() {
 
     useEffect(() => {
         dispatch(fetchContacts(token))
-    }, [])
+    }, [dispatch])
     const contacts = useSelector(getContacts);
-    console.log(contacts)
     const addContact = (data) => {
         if (contacts.find(contact => contact.name === data.name)) {
             alert(`${data.name} already exists`)
@@ -51,10 +49,9 @@ export default function ContactsPage() {
         setFilter(e.target.value)
     };
 
-    // const remove = (data) => {
-    //     const action = actions.removeContact(data);
-    //     dispatch(action);
-    // }
+    const remove = (data) => {
+        dispatch(removeContactAction([data, token]));
+    }
 
     const data = getFilteredContacts()
     return (
@@ -70,7 +67,7 @@ export default function ContactsPage() {
                     value={filter} />
                 <ContactList
                     contacts={data}
-                    onClick={() => alert('remove')}
+                    onClick={remove}
                 />
             </div>
             <br />

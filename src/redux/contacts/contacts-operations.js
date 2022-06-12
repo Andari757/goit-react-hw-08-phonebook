@@ -24,25 +24,15 @@ export const addContact = createAsyncThunk(
             return rejectWithValue(error.message);
         }
     },
-    {
-        condition: (data, { getState }) => {
-            const isDuplicated = getState().contacts.items.find(
-                item => item.name === data.name
-            );
-            if (isDuplicated) {
-                alert(`${data.name} already exists`)
-                return null;
-            }
-        },
-    }
+
 );
 
 export const removeContact = createAsyncThunk(
     'contacts/removeContact',
-    async (id, { rejectWithValue }) => {
+    async (data, { rejectWithValue }) => {
         try {
-            const data = await deleteContact(id);
-            return data;
+            const contact = await deleteContact(data);
+            return contact;
         } catch (error) {
             return rejectWithValue(error.message);
         }
