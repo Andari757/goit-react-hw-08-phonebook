@@ -22,7 +22,7 @@ export function App() {
     if (isLoggedIn && (location.pathname.startsWith('/login') || location.pathname.startsWith('/register'))) {
       navigate("/contacts");
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, location.pathname, navigate]);
 
   return (
 
