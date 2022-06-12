@@ -28,6 +28,8 @@ export default function LoginForm({ onSubmit }) {
     };
     return (
         <form className={s.form} onSubmit={handleSubmit}>
+            <img src={require('./1.png')} alt="" />
+            це посилання на сторінку реєстрації
             <button type='button' className={s.buttonLink}>
                 <Link className={s.link} to="/register">
                     Register?
