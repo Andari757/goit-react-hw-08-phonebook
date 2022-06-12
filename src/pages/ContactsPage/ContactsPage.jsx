@@ -19,20 +19,18 @@ export default function ContactsPage() {
     const loading = useSelector(getLoading)
     const dispatch = useDispatch();
 
-    const token = useSelector(getToken);
 
     useEffect(() => {
-        if (!token) return
 
-        dispatch(fetchContacts(token))
-    }, [dispatch, token])
+        dispatch(fetchContacts())
+    }, [dispatch])
     const contacts = useSelector(getContacts);
     const addContact = (data) => {
         if (contacts.find(contact => contact.name === data.name)) {
             alert(`${data.name} already exists`)
             return;
         }
-        dispatch(addContactAction([data, token]));
+        dispatch(addContactAction(data));
     }
 
     function getFilteredContacts() {
@@ -50,7 +48,7 @@ export default function ContactsPage() {
     };
 
     const remove = (data) => {
-        dispatch(removeContactAction([data, token]));
+        dispatch(removeContactAction(data));
     }
 
     const data = getFilteredContacts()

@@ -22,7 +22,6 @@ export const authSlice = createSlice({
             store.error = null;
         },
         [login.fulfilled]: (store, { payload }) => {
-            console.log(payload)
             store.loading = false;
             store.isLogin = true;
             store.token = payload.token;
@@ -38,7 +37,6 @@ export const authSlice = createSlice({
             store.error = null;
         },
         [getCurrentUser.fulfilled]: (store, { payload }) => {
-            console.log(payload)
             store.loading = false;
             store.isLogin = true;
             store.user = payload;

@@ -4,7 +4,6 @@ import { isUserLoggedIn } from 'redux/auth/auth-selectors';
 
 const useLogin = () => {
     const isLogin = useSelector(isUserLoggedIn, shallowEqual);
-
     return isLogin;
 }
 

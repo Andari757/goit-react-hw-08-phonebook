@@ -29,10 +29,13 @@ export const login = createAsyncThunk(
 export const getCurrentUser = createAsyncThunk(
     "auth/current",
     async (_, { rejectWithValue, getState }) => {
+        const { auth } = getState();
+        const { token } = auth;
+        if (!token) {
+            return rejectWithValue();
+        }
         try {
-            const { auth } = getState();
-            const { token } = auth;
-            if (!token) return
+
             const user = await services.getCurrent(token);
             return user;
         } catch (error) {
