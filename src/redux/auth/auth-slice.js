@@ -22,12 +22,14 @@ export const authSlice = createSlice({
             store.error = null;
         },
         [login.fulfilled]: (store, { payload }) => {
+            console.log(payload)
             store.loading = false;
             store.isLogin = true;
             store.token = payload.token;
             store.user = payload.user;
         },
         [login.rejected]: (store, { payload }) => {
+
             store.loading = false;
             store.error = payload;
         },
@@ -39,7 +41,7 @@ export const authSlice = createSlice({
             console.log(payload)
             store.loading = false;
             store.isLogin = true;
-            store.user = payload.user;
+            store.user = payload;
         },
         [getCurrentUser.rejected]: (store, { payload }) => {
             store.loading = false;
