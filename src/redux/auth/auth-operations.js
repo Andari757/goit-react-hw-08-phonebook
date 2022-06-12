@@ -32,6 +32,7 @@ export const getCurrentUser = createAsyncThunk(
         try {
             const { auth } = getState();
             const { token } = auth;
+            if (!token) return
             const user = await services.getCurrent(token);
             return user;
         } catch (error) {
